@@ -74,9 +74,9 @@ namespace CabMaker
             txtOutput.Clear();
             txtOutput.ForeColor = SystemColors.WindowText;
 
-            if (StringUtil.IsNullOrWhiteSpace(txtSourceFolder.Text) ||
-                StringUtil.IsNullOrWhiteSpace(txtTargetFolder.Text) ||
-                StringUtil.IsNullOrWhiteSpace(txtFileName.Text))
+            if (String.IsNullOrWhiteSpace(txtSourceFolder.Text) ||
+                String.IsNullOrWhiteSpace(txtTargetFolder.Text) ||
+                String.IsNullOrWhiteSpace(txtFileName.Text))
             {
                 txtOutput.AppendText("Error: Source path, target path, and target file name must be specified.");
                 txtOutput.ForeColor = Color.Red;
