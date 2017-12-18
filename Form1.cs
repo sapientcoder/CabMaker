@@ -85,7 +85,16 @@ namespace CabMaker
             {
                 try
                 {
+                    // Create target folder if it doesn't already exist
+
+                    if (!Directory.Exists(txtTargetFolder.Text))
+                    {
+                        Directory.CreateDirectory(txtTargetFolder.Text);
+                    }
+
                     string ddfPath = Path.Combine(txtTargetFolder.Text, txtFileName.Text + ".ddf");
+
+                    // Build DDF file
 
                     StringBuilder ddf = new StringBuilder();
                     ddf.AppendFormat(@";*** MakeCAB Directive file;
@@ -95,7 +104,7 @@ namespace CabMaker
 .Set MaxDiskSize=0
 .Set Cabinet=on
 .Set Compress=on
-", txtFileName.Text, txtTargetFolder.Text);
+", txtFileName.Text.EnsureQuoted(), txtTargetFolder.Text.EnsureQuoted());
 
                     List<DdfFileRow> ddfFiles = GetFiles(txtSourceFolder.Text);
 
@@ -106,7 +115,9 @@ namespace CabMaker
 
                     File.WriteAllText(ddfPath, ddf.ToString());
 
-                    string cmd = String.Format("/f {0}", ddfPath);
+                    string cmd = String.Format("/f {0}", ddfPath.EnsureQuoted());
+
+                    // Run "makecab.exe"
 
                     Process process = new Process();
 
