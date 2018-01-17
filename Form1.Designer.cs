@@ -41,31 +41,34 @@
             this.txtFileName = new System.Windows.Forms.TextBox();
             this.chkRecursive = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chkRemember = new System.Windows.Forms.CheckBox();
             this.lblOutputStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(22, 17);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 13);
+            this.label1.Size = new System.Drawing.Size(134, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "Source folder:";
             // 
             // txtSourceFolder
             // 
-            this.txtSourceFolder.Location = new System.Drawing.Point(15, 25);
+            this.txtSourceFolder.Location = new System.Drawing.Point(28, 46);
+            this.txtSourceFolder.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtSourceFolder.Name = "txtSourceFolder";
-            this.txtSourceFolder.Size = new System.Drawing.Size(443, 20);
+            this.txtSourceFolder.Size = new System.Drawing.Size(809, 29);
             this.txtSourceFolder.TabIndex = 1;
             // 
             // btnSourceBrowse
             // 
-            this.btnSourceBrowse.Location = new System.Drawing.Point(464, 23);
+            this.btnSourceBrowse.Location = new System.Drawing.Point(851, 42);
+            this.btnSourceBrowse.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnSourceBrowse.Name = "btnSourceBrowse";
-            this.btnSourceBrowse.Size = new System.Drawing.Size(75, 23);
+            this.btnSourceBrowse.Size = new System.Drawing.Size(138, 42);
             this.btnSourceBrowse.TabIndex = 2;
             this.btnSourceBrowse.Text = "Browse...";
             this.btnSourceBrowse.UseVisualStyleBackColor = true;
@@ -74,24 +77,27 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 90);
+            this.label2.Location = new System.Drawing.Point(22, 166);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 13);
+            this.label2.Size = new System.Drawing.Size(128, 25);
             this.label2.TabIndex = 4;
             this.label2.Text = "Target folder:";
             // 
             // txtTargetFolder
             // 
-            this.txtTargetFolder.Location = new System.Drawing.Point(15, 106);
+            this.txtTargetFolder.Location = new System.Drawing.Point(28, 196);
+            this.txtTargetFolder.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtTargetFolder.Name = "txtTargetFolder";
-            this.txtTargetFolder.Size = new System.Drawing.Size(443, 20);
+            this.txtTargetFolder.Size = new System.Drawing.Size(809, 29);
             this.txtTargetFolder.TabIndex = 5;
             // 
             // btnTargetBrowse
             // 
-            this.btnTargetBrowse.Location = new System.Drawing.Point(464, 105);
+            this.btnTargetBrowse.Location = new System.Drawing.Point(851, 194);
+            this.btnTargetBrowse.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnTargetBrowse.Name = "btnTargetBrowse";
-            this.btnTargetBrowse.Size = new System.Drawing.Size(75, 23);
+            this.btnTargetBrowse.Size = new System.Drawing.Size(138, 42);
             this.btnTargetBrowse.TabIndex = 6;
             this.btnTargetBrowse.Text = "Browse...";
             this.btnTargetBrowse.UseVisualStyleBackColor = true;
@@ -101,28 +107,31 @@
             // 
             this.txtOutput.BackColor = System.Drawing.Color.White;
             this.txtOutput.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOutput.Location = new System.Drawing.Point(15, 259);
+            this.txtOutput.Location = new System.Drawing.Point(28, 478);
+            this.txtOutput.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtOutput.Multiline = true;
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ReadOnly = true;
             this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtOutput.Size = new System.Drawing.Size(524, 215);
+            this.txtOutput.Size = new System.Drawing.Size(957, 394);
             this.txtOutput.TabIndex = 13;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 235);
+            this.label3.Location = new System.Drawing.Point(24, 434);
+            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 13);
+            this.label3.Size = new System.Drawing.Size(77, 25);
             this.label3.TabIndex = 12;
             this.label3.Text = "Output:";
             // 
             // btnRun
             // 
-            this.btnRun.Location = new System.Drawing.Point(464, 230);
+            this.btnRun.Location = new System.Drawing.Point(851, 425);
+            this.btnRun.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnRun.Name = "btnRun";
-            this.btnRun.Size = new System.Drawing.Size(75, 23);
+            this.btnRun.Size = new System.Drawing.Size(138, 42);
             this.btnRun.TabIndex = 11;
             this.btnRun.Text = "Make CAB";
             this.btnRun.UseVisualStyleBackColor = true;
@@ -131,17 +140,19 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 151);
+            this.label4.Location = new System.Drawing.Point(22, 279);
+            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(86, 13);
+            this.label4.Size = new System.Drawing.Size(158, 25);
             this.label4.TabIndex = 7;
             this.label4.Text = "Target file name:";
             // 
             // txtFileName
             // 
-            this.txtFileName.Location = new System.Drawing.Point(15, 167);
+            this.txtFileName.Location = new System.Drawing.Point(28, 308);
+            this.txtFileName.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtFileName.Name = "txtFileName";
-            this.txtFileName.Size = new System.Drawing.Size(238, 20);
+            this.txtFileName.Size = new System.Drawing.Size(433, 29);
             this.txtFileName.TabIndex = 8;
             // 
             // chkRecursive
@@ -149,9 +160,10 @@
             this.chkRecursive.AutoSize = true;
             this.chkRecursive.Checked = true;
             this.chkRecursive.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRecursive.Location = new System.Drawing.Point(30, 51);
+            this.chkRecursive.Location = new System.Drawing.Point(55, 94);
+            this.chkRecursive.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.chkRecursive.Name = "chkRecursive";
-            this.chkRecursive.Size = new System.Drawing.Size(252, 17);
+            this.chkRecursive.Size = new System.Drawing.Size(452, 29);
             this.chkRecursive.TabIndex = 3;
             this.chkRecursive.Text = "Include all sub-folders beneath the source folder";
             this.chkRecursive.UseVisualStyleBackColor = true;
@@ -159,39 +171,42 @@
             // label5
             // 
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label5.Location = new System.Drawing.Point(16, 210);
+            this.label5.Location = new System.Drawing.Point(29, 388);
+            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(523, 2);
+            this.label5.Size = new System.Drawing.Size(959, 4);
             this.label5.TabIndex = 10;
             // 
-            // checkBox1
+            // chkRemember
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(310, 169);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(229, 17);
-            this.checkBox1.TabIndex = 9;
-            this.checkBox1.Text = "Remember these values next time app runs";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chkRemember.AutoSize = true;
+            this.chkRemember.Checked = true;
+            this.chkRemember.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkRemember.Location = new System.Drawing.Point(568, 312);
+            this.chkRemember.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chkRemember.Name = "chkRemember";
+            this.chkRemember.Size = new System.Drawing.Size(412, 29);
+            this.chkRemember.TabIndex = 9;
+            this.chkRemember.Text = "Remember these values next time app runs";
+            this.chkRemember.UseVisualStyleBackColor = true;
             // 
             // lblOutputStatus
             // 
             this.lblOutputStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOutputStatus.Location = new System.Drawing.Point(85, 235);
+            this.lblOutputStatus.Location = new System.Drawing.Point(156, 434);
+            this.lblOutputStatus.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblOutputStatus.Name = "lblOutputStatus";
-            this.lblOutputStatus.Size = new System.Drawing.Size(373, 17);
+            this.lblOutputStatus.Size = new System.Drawing.Size(684, 31);
             this.lblOutputStatus.TabIndex = 14;
             this.lblOutputStatus.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(556, 496);
+            this.ClientSize = new System.Drawing.Size(1019, 916);
             this.Controls.Add(this.lblOutputStatus);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.chkRemember);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.chkRecursive);
             this.Controls.Add(this.txtFileName);
@@ -206,6 +221,7 @@
             this.Controls.Add(this.txtSourceFolder);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -232,7 +248,7 @@
         private System.Windows.Forms.TextBox txtFileName;
         private System.Windows.Forms.CheckBox chkRecursive;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chkRemember;
         private System.Windows.Forms.Label lblOutputStatus;
     }
 }

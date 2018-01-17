@@ -193,7 +193,7 @@ namespace CabMaker
             IsolatedStorageFile storage = IsolatedStorageFile.GetStore(
                 IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
 
-            bool save = chkRecursive.Checked;
+            bool save = chkRemember.Checked;
 
             UserSettings settings = new UserSettings()
             {
