@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.IsolatedStorage;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
@@ -11,6 +13,7 @@ namespace CabMaker
 {
     public partial class Form1 : Form
     {
+        private const int MAX_LINES_IN_DDF = 1024;
         private const int EXIT_CODE_SUCCESS = 0;
 
         public Form1()
@@ -106,14 +109,17 @@ namespace CabMaker
 .Set Compress=on
 ", txtFileName.Text.EnsureQuoted(), txtTargetFolder.Text.EnsureQuoted());
 
+                    int ddfHeaderLines = ddf.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Length;
+                    int maxFiles = MAX_LINES_IN_DDF - ddfHeaderLines; // only write enough files to hit the max # of lines allowed in a DDF (blank lines don't count)
+
                     List<DdfFileRow> ddfFiles = GetFiles(txtSourceFolder.Text);
 
-                    foreach (var ddfFile in ddfFiles)
+                    foreach (var ddfFile in ddfFiles.Take(maxFiles))
                     {
                         ddf.AppendFormat("\"{0}\" \"{1}\"{2}", ddfFile.FullName, ddfFile.Path, Environment.NewLine);
                     }
 
-                    File.WriteAllText(ddfPath, ddf.ToString());
+                    File.WriteAllText(ddfPath, ddf.ToString(), Encoding.Default);
 
                     string cmd = String.Format("/f {0}", ddfPath.EnsureQuoted());
 
@@ -165,6 +171,7 @@ namespace CabMaker
             btnRun.Enabled = true;
         }
 
+        // capture output from console stdout to output box on form
         private void Process_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             this.BeginInvoke((MethodInvoker)delegate
@@ -176,6 +183,7 @@ namespace CabMaker
             });
         }
 
+        // capture output from console stderr to output box on form
         private void Process_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
             this.BeginInvoke((MethodInvoker)delegate
@@ -203,7 +211,7 @@ namespace CabMaker
                 IncludeSubfolders = (save ? chkRecursive.Checked : true)
             };
 
-            storage.SaveObject(settings, String.Format("{0}.dat", Application.ProductName));
+            storage.SaveObject(settings, $"{Application.ProductName}.dat");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -211,7 +219,7 @@ namespace CabMaker
             IsolatedStorageFile storage = IsolatedStorageFile.GetStore(
                 IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
 
-            UserSettings settings = storage.LoadObject<UserSettings>(String.Format("{0}.dat", Application.ProductName));
+            UserSettings settings = storage.LoadObject<UserSettings>($"{Application.ProductName}.dat");
 
             if (settings != null)
             {
@@ -219,6 +227,8 @@ namespace CabMaker
                 txtTargetFolder.Text = settings.TargetPath;
                 txtFileName.Text = settings.FileName;
             }
+
+            lblVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString(2);
         }
     }
 }

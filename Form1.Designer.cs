@@ -43,6 +43,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.chkRemember = new System.Windows.Forms.CheckBox();
             this.lblOutputStatus = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -58,7 +60,7 @@
             // txtSourceFolder
             // 
             this.txtSourceFolder.Location = new System.Drawing.Point(28, 46);
-            this.txtSourceFolder.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtSourceFolder.Margin = new System.Windows.Forms.Padding(6);
             this.txtSourceFolder.Name = "txtSourceFolder";
             this.txtSourceFolder.Size = new System.Drawing.Size(809, 29);
             this.txtSourceFolder.TabIndex = 1;
@@ -66,7 +68,7 @@
             // btnSourceBrowse
             // 
             this.btnSourceBrowse.Location = new System.Drawing.Point(851, 42);
-            this.btnSourceBrowse.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnSourceBrowse.Margin = new System.Windows.Forms.Padding(6);
             this.btnSourceBrowse.Name = "btnSourceBrowse";
             this.btnSourceBrowse.Size = new System.Drawing.Size(138, 42);
             this.btnSourceBrowse.TabIndex = 2;
@@ -87,7 +89,7 @@
             // txtTargetFolder
             // 
             this.txtTargetFolder.Location = new System.Drawing.Point(28, 196);
-            this.txtTargetFolder.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtTargetFolder.Margin = new System.Windows.Forms.Padding(6);
             this.txtTargetFolder.Name = "txtTargetFolder";
             this.txtTargetFolder.Size = new System.Drawing.Size(809, 29);
             this.txtTargetFolder.TabIndex = 5;
@@ -95,7 +97,7 @@
             // btnTargetBrowse
             // 
             this.btnTargetBrowse.Location = new System.Drawing.Point(851, 194);
-            this.btnTargetBrowse.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnTargetBrowse.Margin = new System.Windows.Forms.Padding(6);
             this.btnTargetBrowse.Name = "btnTargetBrowse";
             this.btnTargetBrowse.Size = new System.Drawing.Size(138, 42);
             this.btnTargetBrowse.TabIndex = 6;
@@ -108,7 +110,7 @@
             this.txtOutput.BackColor = System.Drawing.Color.White;
             this.txtOutput.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOutput.Location = new System.Drawing.Point(28, 478);
-            this.txtOutput.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtOutput.Margin = new System.Windows.Forms.Padding(6);
             this.txtOutput.Multiline = true;
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ReadOnly = true;
@@ -129,7 +131,7 @@
             // btnRun
             // 
             this.btnRun.Location = new System.Drawing.Point(851, 425);
-            this.btnRun.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnRun.Margin = new System.Windows.Forms.Padding(6);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(138, 42);
             this.btnRun.TabIndex = 11;
@@ -150,7 +152,7 @@
             // txtFileName
             // 
             this.txtFileName.Location = new System.Drawing.Point(28, 308);
-            this.txtFileName.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtFileName.Margin = new System.Windows.Forms.Padding(6);
             this.txtFileName.Name = "txtFileName";
             this.txtFileName.Size = new System.Drawing.Size(433, 29);
             this.txtFileName.TabIndex = 8;
@@ -161,7 +163,7 @@
             this.chkRecursive.Checked = true;
             this.chkRecursive.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRecursive.Location = new System.Drawing.Point(55, 94);
-            this.chkRecursive.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chkRecursive.Margin = new System.Windows.Forms.Padding(6);
             this.chkRecursive.Name = "chkRecursive";
             this.chkRecursive.Size = new System.Drawing.Size(452, 29);
             this.chkRecursive.TabIndex = 3;
@@ -183,7 +185,7 @@
             this.chkRemember.Checked = true;
             this.chkRemember.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRemember.Location = new System.Drawing.Point(568, 312);
-            this.chkRemember.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.chkRemember.Margin = new System.Windows.Forms.Padding(6);
             this.chkRemember.Name = "chkRemember";
             this.chkRemember.Size = new System.Drawing.Size(412, 29);
             this.chkRemember.TabIndex = 9;
@@ -200,11 +202,31 @@
             this.lblOutputStatus.TabIndex = 14;
             this.lblOutputStatus.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(24, 902);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(85, 25);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "Version:";
+            // 
+            // lblVersion
+            // 
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Location = new System.Drawing.Point(115, 902);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(39, 25);
+            this.lblVersion.TabIndex = 16;
+            this.lblVersion.Text = "1.0";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1019, 916);
+            this.ClientSize = new System.Drawing.Size(1019, 955);
+            this.Controls.Add(this.lblVersion);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.lblOutputStatus);
             this.Controls.Add(this.chkRemember);
             this.Controls.Add(this.label5);
@@ -221,7 +243,7 @@
             this.Controls.Add(this.txtSourceFolder);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -250,6 +272,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox chkRemember;
         private System.Windows.Forms.Label lblOutputStatus;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblVersion;
     }
 }
 
