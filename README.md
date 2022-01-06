@@ -4,7 +4,7 @@ CabMaker is a free tool that lets you quickly and easily package up a folder of 
 
 It's essentially a GUI for makecab.exe (the command-line utility that ships with Windows).
 
-![alt tag](https://yieldreturnpost.files.wordpress.com/2016/06/cabmaker2.png "Screenshot of CabMaker GUI for makecab.exe")
+![alt tag](https://yieldreturnpost.files.wordpress.com/2022/01/cabmaker-v1.5.png "Screenshot of CabMaker GUI for makecab.exe")
 
 It's a helpful utility for scenarios like SharePoint and InfoPath development. Both of those rely on .cab files but with different file extensions (.wsp for SharePoint and .xsn for InfoPath).
 
