@@ -27,6 +27,8 @@ namespace CabMaker
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
 
+            dialog.SelectedPath = txtSourceFolder.Text;
+
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 txtSourceFolder.Text = dialog.SelectedPath;
@@ -36,7 +38,8 @@ namespace CabMaker
         private void btnTargetBrowse_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
-            dialog.SelectedPath = txtSourceFolder.Text;
+
+            dialog.SelectedPath = txtTargetFolder.Text;
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
