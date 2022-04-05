@@ -21,7 +21,9 @@ namespace CabMaker
             InitializeComponent();
         }
 
-        private bool IncludeCompressionWindowSize => !Constants.DefaultCompressionType.ToString().Equals(cboCompressType.Items[cboCompressType.SelectedIndex]);
+        private bool IncludeCompressionWindowSize =>
+            !Constants.DefaultCompressionType.ToString().Equals(cboCompressType.Items[cboCompressType.SelectedIndex]) &&
+            !CompressionType.None.ToString().Equals(cboCompressType.SelectedItem);
 
         private void btnSourceBrowse_Click(object sender, EventArgs e)
         {
@@ -104,15 +106,21 @@ namespace CabMaker
 
                     // Build DDF file
 
+                    bool compress = !CompressionType.None.ToString().Equals(cboCompressType.SelectedItem);
+                    string compressValue = compress ? "on" : "off";
+
                     StringBuilder ddf = new StringBuilder();
-                    ddf.AppendFormat($@";*** MakeCAB Directive file;
+                    ddf.AppendLine($@";*** MakeCAB Directive file;
 .OPTION EXPLICIT
 .Set CabinetNameTemplate={txtFileName.Text.EnsureQuoted()}
 .Set DiskDirectory1={txtTargetFolder.Text.EnsureQuoted()}
 .Set MaxDiskSize=0
 .Set Cabinet=on
-.Set Compress=on
-.Set CompressionType={cboCompressType.SelectedItem ?? Constants.DefaultCompressionType}");
+.Set Compress={compressValue}");
+
+                    if (compress) {
+                        ddf.AppendLine($".Set CompressionType={cboCompressType.SelectedItem ?? Constants.DefaultCompressionType}");
+                    }
 
                     ddf.AppendLine();
 

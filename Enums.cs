@@ -5,6 +5,7 @@
     /// </summary>
     public enum CompressionType
     {
+        None,
         MSZIP,
         LZX
     }
