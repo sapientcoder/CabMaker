@@ -28,306 +28,372 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtSourceFolder = new System.Windows.Forms.TextBox();
-            this.btnSourceBrowse = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtTargetFolder = new System.Windows.Forms.TextBox();
-            this.btnTargetBrowse = new System.Windows.Forms.Button();
-            this.txtOutput = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnRun = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtFileName = new System.Windows.Forms.TextBox();
-            this.chkRecursive = new System.Windows.Forms.CheckBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.chkRemember = new System.Windows.Forms.CheckBox();
-            this.lblOutputStatus = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lblVersion = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.cboCompressType = new System.Windows.Forms.ComboBox();
-            this.cboCompressMemory = new System.Windows.Forms.ComboBox();
+            this.ButtonTargetBrowse = new System.Windows.Forms.Button();
+            this.TextOutput = new System.Windows.Forms.TextBox();
+            this.ButtonRun = new System.Windows.Forms.Button();
+            this.LabelOutputFile = new System.Windows.Forms.Label();
+            this.TextOutputFile = new System.Windows.Forms.TextBox();
+            this.LabelCompressionType = new System.Windows.Forms.Label();
+            this.LabelCompressionMemory = new System.Windows.Forms.Label();
+            this.DropdownCompressType = new System.Windows.Forms.ComboBox();
+            this.DropdownCompressMemory = new System.Windows.Forms.ComboBox();
+            this.GroupBoxFiles = new System.Windows.Forms.GroupBox();
+            this.FilesListBox = new System.Windows.Forms.CheckedListBox();
+            this.SelectAllFiles = new System.Windows.Forms.Button();
+            this.ClearFiles = new System.Windows.Forms.Button();
+            this.AddFile = new System.Windows.Forms.Button();
+            this.AddFolder = new System.Windows.Forms.Button();
+            this.GroupBoxCompressor = new System.Windows.Forms.GroupBox();
+            this.ButtonBrowseRoot = new System.Windows.Forms.Button();
+            this.txtRootDir = new System.Windows.Forms.TextBox();
+            this.LabelRootDirectory = new System.Windows.Forms.Label();
+            this.CheckSaveSettings = new System.Windows.Forms.CheckBox();
+            this.ButtonClear = new System.Windows.Forms.Button();
+            this.ButtonExport = new System.Windows.Forms.Button();
+            this.StatusStrip = new System.Windows.Forms.StatusStrip();
+            this.LabelVersion = new System.Windows.Forms.ToolStripStatusLabel();
+            this.LabelOutputStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.GroupBoxFiles.SuspendLayout();
+            this.GroupBoxCompressor.SuspendLayout();
+            this.StatusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // ButtonTargetBrowse
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 14);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(108, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Source folder:";
+            this.ButtonTargetBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonTargetBrowse.Location = new System.Drawing.Point(459, 16);
+            this.ButtonTargetBrowse.Name = "ButtonTargetBrowse";
+            this.ButtonTargetBrowse.Size = new System.Drawing.Size(75, 23);
+            this.ButtonTargetBrowse.TabIndex = 9;
+            this.ButtonTargetBrowse.Text = "Browse...";
+            this.ButtonTargetBrowse.UseVisualStyleBackColor = true;
+            this.ButtonTargetBrowse.Click += new System.EventHandler(this.ButtonTargetBrowse_Click);
             // 
-            // txtSourceFolder
+            // TextOutput
             // 
-            this.txtSourceFolder.Location = new System.Drawing.Point(23, 38);
-            this.txtSourceFolder.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.txtSourceFolder.Name = "txtSourceFolder";
-            this.txtSourceFolder.Size = new System.Drawing.Size(663, 26);
-            this.txtSourceFolder.TabIndex = 1;
+            this.TextOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextOutput.BackColor = System.Drawing.Color.White;
+            this.TextOutput.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextOutput.Location = new System.Drawing.Point(4, 121);
+            this.TextOutput.Multiline = true;
+            this.TextOutput.Name = "TextOutput";
+            this.TextOutput.ReadOnly = true;
+            this.TextOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.TextOutput.Size = new System.Drawing.Size(531, 124);
+            this.TextOutput.TabIndex = 13;
+            this.TextOutput.WordWrap = false;
             // 
-            // btnSourceBrowse
+            // ButtonRun
             // 
-            this.btnSourceBrowse.Location = new System.Drawing.Point(696, 35);
-            this.btnSourceBrowse.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.btnSourceBrowse.Name = "btnSourceBrowse";
-            this.btnSourceBrowse.Size = new System.Drawing.Size(113, 35);
-            this.btnSourceBrowse.TabIndex = 2;
-            this.btnSourceBrowse.Text = "Browse...";
-            this.btnSourceBrowse.UseVisualStyleBackColor = true;
-            this.btnSourceBrowse.Click += new System.EventHandler(this.btnSourceBrowse_Click);
+            this.ButtonRun.Location = new System.Drawing.Point(163, 93);
+            this.ButtonRun.Name = "ButtonRun";
+            this.ButtonRun.Size = new System.Drawing.Size(75, 23);
+            this.ButtonRun.TabIndex = 11;
+            this.ButtonRun.Text = "Make CAB";
+            this.ButtonRun.UseVisualStyleBackColor = true;
+            this.ButtonRun.Click += new System.EventHandler(this.ButtonRun_Click);
             // 
-            // label2
+            // LabelOutputFile
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 138);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 20);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Target folder:";
+            this.LabelOutputFile.AutoSize = true;
+            this.LabelOutputFile.Location = new System.Drawing.Point(5, 21);
+            this.LabelOutputFile.Name = "LabelOutputFile";
+            this.LabelOutputFile.Size = new System.Drawing.Size(61, 13);
+            this.LabelOutputFile.TabIndex = 7;
+            this.LabelOutputFile.Text = "Output File:";
             // 
-            // txtTargetFolder
+            // TextOutputFile
             // 
-            this.txtTargetFolder.Location = new System.Drawing.Point(23, 163);
-            this.txtTargetFolder.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.txtTargetFolder.Name = "txtTargetFolder";
-            this.txtTargetFolder.Size = new System.Drawing.Size(663, 26);
-            this.txtTargetFolder.TabIndex = 5;
+            this.TextOutputFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextOutputFile.Location = new System.Drawing.Point(72, 18);
+            this.TextOutputFile.Name = "TextOutputFile";
+            this.TextOutputFile.Size = new System.Drawing.Size(383, 20);
+            this.TextOutputFile.TabIndex = 8;
             // 
-            // btnTargetBrowse
+            // LabelCompressionType
             // 
-            this.btnTargetBrowse.Location = new System.Drawing.Point(696, 162);
-            this.btnTargetBrowse.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.btnTargetBrowse.Name = "btnTargetBrowse";
-            this.btnTargetBrowse.Size = new System.Drawing.Size(113, 35);
-            this.btnTargetBrowse.TabIndex = 6;
-            this.btnTargetBrowse.Text = "Browse...";
-            this.btnTargetBrowse.UseVisualStyleBackColor = true;
-            this.btnTargetBrowse.Click += new System.EventHandler(this.btnTargetBrowse_Click);
+            this.LabelCompressionType.AutoSize = true;
+            this.LabelCompressionType.Location = new System.Drawing.Point(4, 70);
+            this.LabelCompressionType.Name = "LabelCompressionType";
+            this.LabelCompressionType.Size = new System.Drawing.Size(97, 13);
+            this.LabelCompressionType.TabIndex = 17;
+            this.LabelCompressionType.Text = "Compression Type:";
             // 
-            // txtOutput
+            // LabelCompressionMemory
             // 
-            this.txtOutput.BackColor = System.Drawing.Color.White;
-            this.txtOutput.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOutput.Location = new System.Drawing.Point(23, 469);
-            this.txtOutput.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.txtOutput.Multiline = true;
-            this.txtOutput.Name = "txtOutput";
-            this.txtOutput.ReadOnly = true;
-            this.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtOutput.Size = new System.Drawing.Size(784, 329);
-            this.txtOutput.TabIndex = 13;
+            this.LabelCompressionMemory.AutoSize = true;
+            this.LabelCompressionMemory.Location = new System.Drawing.Point(223, 70);
+            this.LabelCompressionMemory.Name = "LabelCompressionMemory";
+            this.LabelCompressionMemory.Size = new System.Drawing.Size(110, 13);
+            this.LabelCompressionMemory.TabIndex = 18;
+            this.LabelCompressionMemory.Text = "Compression Memory:";
             // 
-            // label3
+            // DropdownCompressType
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 433);
-            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(62, 20);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Output:";
+            this.DropdownCompressType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.DropdownCompressType.FormattingEnabled = true;
+            this.DropdownCompressType.Location = new System.Drawing.Point(106, 67);
+            this.DropdownCompressType.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.DropdownCompressType.Name = "DropdownCompressType";
+            this.DropdownCompressType.Size = new System.Drawing.Size(111, 21);
+            this.DropdownCompressType.TabIndex = 19;
+            this.DropdownCompressType.SelectedIndexChanged += new System.EventHandler(this.DropdownCompressType_SelectedIndexChanged);
             // 
-            // btnRun
+            // DropdownCompressMemory
             // 
-            this.btnRun.Location = new System.Drawing.Point(696, 425);
-            this.btnRun.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.btnRun.Name = "btnRun";
-            this.btnRun.Size = new System.Drawing.Size(113, 35);
-            this.btnRun.TabIndex = 11;
-            this.btnRun.Text = "Make CAB";
-            this.btnRun.UseVisualStyleBackColor = true;
-            this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
+            this.DropdownCompressMemory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.DropdownCompressMemory.Enabled = false;
+            this.DropdownCompressMemory.FormattingEnabled = true;
+            this.DropdownCompressMemory.Location = new System.Drawing.Point(338, 67);
+            this.DropdownCompressMemory.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.DropdownCompressMemory.Name = "DropdownCompressMemory";
+            this.DropdownCompressMemory.Size = new System.Drawing.Size(76, 21);
+            this.DropdownCompressMemory.TabIndex = 20;
             // 
-            // label4
+            // GroupBoxFiles
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 232);
-            this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(127, 20);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Target file name:";
+            this.GroupBoxFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.GroupBoxFiles.Controls.Add(this.FilesListBox);
+            this.GroupBoxFiles.Controls.Add(this.SelectAllFiles);
+            this.GroupBoxFiles.Controls.Add(this.ClearFiles);
+            this.GroupBoxFiles.Controls.Add(this.AddFile);
+            this.GroupBoxFiles.Controls.Add(this.AddFolder);
+            this.GroupBoxFiles.Location = new System.Drawing.Point(8, 8);
+            this.GroupBoxFiles.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GroupBoxFiles.Name = "GroupBoxFiles";
+            this.GroupBoxFiles.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GroupBoxFiles.Size = new System.Drawing.Size(540, 170);
+            this.GroupBoxFiles.TabIndex = 0;
+            this.GroupBoxFiles.TabStop = false;
+            this.GroupBoxFiles.Text = "Files";
             // 
-            // txtFileName
+            // FilesListBox
             // 
-            this.txtFileName.Location = new System.Drawing.Point(23, 257);
-            this.txtFileName.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.txtFileName.Name = "txtFileName";
-            this.txtFileName.Size = new System.Drawing.Size(355, 26);
-            this.txtFileName.TabIndex = 8;
+            this.FilesListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FilesListBox.FormattingEnabled = true;
+            this.FilesListBox.Location = new System.Drawing.Point(4, 43);
+            this.FilesListBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.FilesListBox.Name = "FilesListBox";
+            this.FilesListBox.ScrollAlwaysVisible = true;
+            this.FilesListBox.Size = new System.Drawing.Size(531, 124);
+            this.FilesListBox.TabIndex = 5;
             // 
-            // chkRecursive
+            // SelectAllFiles
             // 
-            this.chkRecursive.AutoSize = true;
-            this.chkRecursive.Checked = true;
-            this.chkRecursive.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRecursive.Location = new System.Drawing.Point(45, 78);
-            this.chkRecursive.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.chkRecursive.Name = "chkRecursive";
-            this.chkRecursive.Size = new System.Drawing.Size(375, 24);
-            this.chkRecursive.TabIndex = 3;
-            this.chkRecursive.Text = "Include all sub-folders beneath the source folder";
-            this.chkRecursive.UseVisualStyleBackColor = true;
+            this.SelectAllFiles.Location = new System.Drawing.Point(83, 16);
+            this.SelectAllFiles.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SelectAllFiles.Name = "SelectAllFiles";
+            this.SelectAllFiles.Size = new System.Drawing.Size(75, 23);
+            this.SelectAllFiles.TabIndex = 2;
+            this.SelectAllFiles.Text = "Deselect All";
+            this.SelectAllFiles.UseVisualStyleBackColor = true;
+            this.SelectAllFiles.Click += new System.EventHandler(this.SelectAllFiles_Click);
             // 
-            // label5
+            // ClearFiles
             // 
-            this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label5.Location = new System.Drawing.Point(24, 394);
-            this.label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(785, 3);
-            this.label5.TabIndex = 10;
+            this.ClearFiles.Location = new System.Drawing.Point(4, 16);
+            this.ClearFiles.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ClearFiles.Name = "ClearFiles";
+            this.ClearFiles.Size = new System.Drawing.Size(75, 23);
+            this.ClearFiles.TabIndex = 1;
+            this.ClearFiles.Text = "Clear All";
+            this.ClearFiles.UseVisualStyleBackColor = true;
+            this.ClearFiles.Click += new System.EventHandler(this.ClearFiles_Click);
             // 
-            // chkRemember
+            // AddFile
             // 
-            this.chkRemember.AutoSize = true;
-            this.chkRemember.Checked = true;
-            this.chkRemember.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRemember.Location = new System.Drawing.Point(465, 260);
-            this.chkRemember.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.chkRemember.Name = "chkRemember";
-            this.chkRemember.Size = new System.Drawing.Size(341, 24);
-            this.chkRemember.TabIndex = 9;
-            this.chkRemember.Text = "Remember these values next time app runs";
-            this.chkRemember.UseVisualStyleBackColor = true;
+            this.AddFile.Location = new System.Drawing.Point(243, 16);
+            this.AddFile.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AddFile.Name = "AddFile";
+            this.AddFile.Size = new System.Drawing.Size(75, 23);
+            this.AddFile.TabIndex = 4;
+            this.AddFile.Text = "Add File";
+            this.AddFile.UseVisualStyleBackColor = true;
+            this.AddFile.Click += new System.EventHandler(this.AddFile_Click);
             // 
-            // lblOutputStatus
+            // AddFolder
             // 
-            this.lblOutputStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOutputStatus.Location = new System.Drawing.Point(128, 433);
-            this.lblOutputStatus.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblOutputStatus.Name = "lblOutputStatus";
-            this.lblOutputStatus.Size = new System.Drawing.Size(560, 26);
-            this.lblOutputStatus.TabIndex = 14;
-            this.lblOutputStatus.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.AddFolder.Location = new System.Drawing.Point(163, 16);
+            this.AddFolder.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AddFolder.Name = "AddFolder";
+            this.AddFolder.Size = new System.Drawing.Size(75, 23);
+            this.AddFolder.TabIndex = 3;
+            this.AddFolder.Text = "Add Folder";
+            this.AddFolder.UseVisualStyleBackColor = true;
+            this.AddFolder.Click += new System.EventHandler(this.AddFolder_Click);
             // 
-            // label6
+            // GroupBoxCompressor
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(20, 823);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 20);
-            this.label6.TabIndex = 15;
-            this.label6.Text = "Version:";
+            this.GroupBoxCompressor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.GroupBoxCompressor.Controls.Add(this.ButtonBrowseRoot);
+            this.GroupBoxCompressor.Controls.Add(this.txtRootDir);
+            this.GroupBoxCompressor.Controls.Add(this.LabelRootDirectory);
+            this.GroupBoxCompressor.Controls.Add(this.CheckSaveSettings);
+            this.GroupBoxCompressor.Controls.Add(this.ButtonClear);
+            this.GroupBoxCompressor.Controls.Add(this.ButtonExport);
+            this.GroupBoxCompressor.Controls.Add(this.DropdownCompressMemory);
+            this.GroupBoxCompressor.Controls.Add(this.ButtonTargetBrowse);
+            this.GroupBoxCompressor.Controls.Add(this.TextOutput);
+            this.GroupBoxCompressor.Controls.Add(this.LabelCompressionMemory);
+            this.GroupBoxCompressor.Controls.Add(this.TextOutputFile);
+            this.GroupBoxCompressor.Controls.Add(this.DropdownCompressType);
+            this.GroupBoxCompressor.Controls.Add(this.LabelOutputFile);
+            this.GroupBoxCompressor.Controls.Add(this.ButtonRun);
+            this.GroupBoxCompressor.Controls.Add(this.LabelCompressionType);
+            this.GroupBoxCompressor.Location = new System.Drawing.Point(8, 182);
+            this.GroupBoxCompressor.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GroupBoxCompressor.Name = "GroupBoxCompressor";
+            this.GroupBoxCompressor.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GroupBoxCompressor.Size = new System.Drawing.Size(540, 250);
+            this.GroupBoxCompressor.TabIndex = 6;
+            this.GroupBoxCompressor.TabStop = false;
+            this.GroupBoxCompressor.Text = "Compressor";
             // 
-            // lblVersion
+            // ButtonBrowseRoot
             // 
-            this.lblVersion.AutoSize = true;
-            this.lblVersion.Location = new System.Drawing.Point(94, 823);
-            this.lblVersion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(129, 20);
-            this.lblVersion.TabIndex = 16;
-            this.lblVersion.Text = "(set at form load)";
+            this.ButtonBrowseRoot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonBrowseRoot.Location = new System.Drawing.Point(459, 41);
+            this.ButtonBrowseRoot.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ButtonBrowseRoot.Name = "ButtonBrowseRoot";
+            this.ButtonBrowseRoot.Size = new System.Drawing.Size(75, 23);
+            this.ButtonBrowseRoot.TabIndex = 26;
+            this.ButtonBrowseRoot.Text = "Browse...";
+            this.ButtonBrowseRoot.UseVisualStyleBackColor = true;
+            this.ButtonBrowseRoot.Click += new System.EventHandler(this.ButtonBrowseRoot_Click);
             // 
-            // label7
+            // txtRootDir
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(20, 333);
-            this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(144, 20);
-            this.label7.TabIndex = 17;
-            this.label7.Text = "Compression Type:";
+            this.txtRootDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRootDir.Location = new System.Drawing.Point(88, 43);
+            this.txtRootDir.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtRootDir.Name = "txtRootDir";
+            this.txtRootDir.Size = new System.Drawing.Size(367, 20);
+            this.txtRootDir.TabIndex = 25;
             // 
-            // label8
+            // LabelRootDirectory
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(461, 333);
-            this.label8.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(166, 20);
-            this.label8.TabIndex = 18;
-            this.label8.Text = "Compression Memory:";
+            this.LabelRootDirectory.AutoSize = true;
+            this.LabelRootDirectory.Location = new System.Drawing.Point(5, 46);
+            this.LabelRootDirectory.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.LabelRootDirectory.Name = "LabelRootDirectory";
+            this.LabelRootDirectory.Size = new System.Drawing.Size(79, 13);
+            this.LabelRootDirectory.TabIndex = 24;
+            this.LabelRootDirectory.Text = "CAB Root DIR:";
             // 
-            // cboCompressType
+            // CheckSaveSettings
             // 
-            this.cboCompressType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboCompressType.FormattingEnabled = true;
-            this.cboCompressType.Location = new System.Drawing.Point(188, 330);
-            this.cboCompressType.Name = "cboCompressType";
-            this.cboCompressType.Size = new System.Drawing.Size(190, 28);
-            this.cboCompressType.TabIndex = 19;
-            this.cboCompressType.SelectedIndexChanged += new System.EventHandler(this.cboCompressType_SelectedIndexChanged);
+            this.CheckSaveSettings.AutoSize = true;
+            this.CheckSaveSettings.Location = new System.Drawing.Point(243, 97);
+            this.CheckSaveSettings.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CheckSaveSettings.Name = "CheckSaveSettings";
+            this.CheckSaveSettings.Size = new System.Drawing.Size(92, 17);
+            this.CheckSaveSettings.TabIndex = 23;
+            this.CheckSaveSettings.Text = "Save Settings";
+            this.CheckSaveSettings.UseVisualStyleBackColor = true;
             // 
-            // cboCompressMemory
+            // ButtonClear
             // 
-            this.cboCompressMemory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboCompressMemory.Enabled = false;
-            this.cboCompressMemory.FormattingEnabled = true;
-            this.cboCompressMemory.Location = new System.Drawing.Point(647, 330);
-            this.cboCompressMemory.Name = "cboCompressMemory";
-            this.cboCompressMemory.Size = new System.Drawing.Size(162, 28);
-            this.cboCompressMemory.TabIndex = 20;
+            this.ButtonClear.Location = new System.Drawing.Point(4, 93);
+            this.ButtonClear.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ButtonClear.Name = "ButtonClear";
+            this.ButtonClear.Size = new System.Drawing.Size(75, 23);
+            this.ButtonClear.TabIndex = 22;
+            this.ButtonClear.Text = "Clear Log";
+            this.ButtonClear.UseVisualStyleBackColor = true;
+            this.ButtonClear.Click += new System.EventHandler(this.ButtonClear_Click);
+            // 
+            // ButtonExport
+            // 
+            this.ButtonExport.Location = new System.Drawing.Point(83, 93);
+            this.ButtonExport.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ButtonExport.Name = "ButtonExport";
+            this.ButtonExport.Size = new System.Drawing.Size(75, 23);
+            this.ButtonExport.TabIndex = 21;
+            this.ButtonExport.Text = "Export Log";
+            this.ButtonExport.UseVisualStyleBackColor = true;
+            this.ButtonExport.Click += new System.EventHandler(this.ButtonExport_Click);
+            // 
+            // StatusStrip
+            // 
+            this.StatusStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.LabelVersion,
+            this.LabelOutputStatus});
+            this.StatusStrip.Location = new System.Drawing.Point(0, 434);
+            this.StatusStrip.Name = "StatusStrip";
+            this.StatusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 9, 0);
+            this.StatusStrip.Size = new System.Drawing.Size(556, 22);
+            this.StatusStrip.TabIndex = 23;
+            this.StatusStrip.Text = "statusStrip1";
+            // 
+            // LabelVersion
+            // 
+            this.LabelVersion.Name = "LabelVersion";
+            this.LabelVersion.Size = new System.Drawing.Size(0, 17);
+            // 
+            // LabelOutputStatus
+            // 
+            this.LabelOutputStatus.Name = "LabelOutputStatus";
+            this.LabelOutputStatus.Size = new System.Drawing.Size(0, 17);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(834, 870);
-            this.Controls.Add(this.cboCompressMemory);
-            this.Controls.Add(this.cboCompressType);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.lblVersion);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.lblOutputStatus);
-            this.Controls.Add(this.chkRemember);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.chkRecursive);
-            this.Controls.Add(this.txtFileName);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.btnRun);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtOutput);
-            this.Controls.Add(this.btnTargetBrowse);
-            this.Controls.Add(this.txtTargetFolder);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.btnSourceBrowse);
-            this.Controls.Add(this.txtSourceFolder);
-            this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.MaximizeBox = false;
+            this.ClientSize = new System.Drawing.Size(556, 456);
+            this.Controls.Add(this.StatusStrip);
+            this.Controls.Add(this.GroupBoxFiles);
+            this.Controls.Add(this.GroupBoxCompressor);
+            this.MinimumSize = new System.Drawing.Size(453, 495);
             this.Name = "Form1";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "CabMaker";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.GroupBoxFiles.ResumeLayout(false);
+            this.GroupBoxCompressor.ResumeLayout(false);
+            this.GroupBoxCompressor.PerformLayout();
+            this.StatusStrip.ResumeLayout(false);
+            this.StatusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtSourceFolder;
-        private System.Windows.Forms.Button btnSourceBrowse;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtTargetFolder;
-        private System.Windows.Forms.Button btnTargetBrowse;
-        private System.Windows.Forms.TextBox txtOutput;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btnRun;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtFileName;
-        private System.Windows.Forms.CheckBox chkRecursive;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox chkRemember;
-        private System.Windows.Forms.Label lblOutputStatus;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label lblVersion;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox cboCompressType;
-        private System.Windows.Forms.ComboBox cboCompressMemory;
+        private System.Windows.Forms.Button ButtonTargetBrowse;
+        private System.Windows.Forms.TextBox TextOutput;
+        private System.Windows.Forms.Button ButtonRun;
+        private System.Windows.Forms.Label LabelOutputFile;
+        private System.Windows.Forms.TextBox TextOutputFile;
+        private System.Windows.Forms.Label LabelCompressionType;
+        private System.Windows.Forms.Label LabelCompressionMemory;
+        private System.Windows.Forms.ComboBox DropdownCompressType;
+        private System.Windows.Forms.ComboBox DropdownCompressMemory;
+        private System.Windows.Forms.GroupBox GroupBoxFiles;
+        private System.Windows.Forms.Button AddFolder;
+        private System.Windows.Forms.Button SelectAllFiles;
+        private System.Windows.Forms.Button ClearFiles;
+        private System.Windows.Forms.Button AddFile;
+        private System.Windows.Forms.GroupBox GroupBoxCompressor;
+        private System.Windows.Forms.StatusStrip StatusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel LabelOutputStatus;
+        private System.Windows.Forms.ToolStripStatusLabel LabelVersion;
+        private System.Windows.Forms.CheckedListBox FilesListBox;
+        private System.Windows.Forms.Button ButtonExport;
+        private System.Windows.Forms.Button ButtonClear;
+        private System.Windows.Forms.CheckBox CheckSaveSettings;
+        private System.Windows.Forms.Button ButtonBrowseRoot;
+        private System.Windows.Forms.TextBox txtRootDir;
+        private System.Windows.Forms.Label LabelRootDirectory;
     }
 }
 
