@@ -21,118 +21,137 @@ namespace CabMaker
             InitializeComponent();
         }
 
+        int jobFiles = 0;
+        int compressedFiles = 0;
+        string txtTargetDir = "";
+
         private bool IncludeCompressionWindowSize =>
-            !Constants.DefaultCompressionType.ToString().Equals(cboCompressType.Items[cboCompressType.SelectedIndex]) &&
-            !CompressionType.None.ToString().Equals(cboCompressType.SelectedItem);
+            !Constants.DefaultCompressionType.ToString().Equals(DropdownCompressType.Items[DropdownCompressType.SelectedIndex]) &&
+            !CompressionType.NONE.ToString().Equals(DropdownCompressType.SelectedItem);
 
-        private void btnSourceBrowse_Click(object sender, EventArgs e)
+        private void ButtonTargetBrowse_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog dialog = new FolderBrowserDialog();
-
-            dialog.SelectedPath = txtSourceFolder.Text;
-
-            if (dialog.ShowDialog() == DialogResult.OK)
+            SaveFileDialog saveFile = new SaveFileDialog
             {
-                txtSourceFolder.Text = dialog.SelectedPath;
+                Filter = "Cabinet Files|*.cab"
+            };
+            if (saveFile.ShowDialog() == DialogResult.OK)
+            {
+                TextOutputFile.Text = saveFile.FileName;
             }
         }
 
-        private void btnTargetBrowse_Click(object sender, EventArgs e)
+        private void AddFile_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog dialog = new FolderBrowserDialog();
-
-            dialog.SelectedPath = txtTargetFolder.Text;
-
-            if (dialog.ShowDialog() == DialogResult.OK)
+            System.Windows.Forms.OpenFileDialog openFile;
+            openFile = new OpenFileDialog
             {
-                txtTargetFolder.Text = dialog.SelectedPath;
+                Multiselect = true
+            };
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                foreach (string fileName in openFile.FileNames)
+                {
+                    FilesListBox.Items.Add(fileName, true);
+                    jobFiles += 1;
+                }
+                LabelOutputStatus.Text = "[JOB] " + jobFiles + " Files Imported";
+                LabelOutputStatus.ForeColor = Color.Green;
             }
         }
 
-        private List<DdfFileRow> GetFiles(string sDir)
+        private void AddFolder_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderDialog;
+            folderDialog = new FolderBrowserDialog();
+            if (folderDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    var files = Directory.GetFiles(folderDialog.SelectedPath, "*", SearchOption.AllDirectories);
+                    foreach (string fileName in files)
+                    {
+                        FilesListBox.Items.Add(fileName, true);
+                        jobFiles += 1;
+                    }
+                    LabelOutputStatus.Text = "[JOB] " + jobFiles + " Files Imported";
+                    LabelOutputStatus.ForeColor = Color.Green;
+                }
+                catch { }
+            }
+            txtRootDir.Text = folderDialog.SelectedPath;
+        }
+
+        private List<DdfFileRow> GetFiles(string RootDir)
         {
             List<DdfFileRow> list = new List<DdfFileRow>();
-            string srcPath = txtSourceFolder.Text;
 
-            foreach (string f in Directory.GetFiles(sDir))
+            foreach (string filename in FilesListBox.CheckedItems)
             {
                 list.Add(new DdfFileRow()
                 {
-                    FullName = f,
-                    Path = f.Replace(srcPath, "").TrimStart('\\')
+                    FullName = filename,
+                    Path = filename.Replace(RootDir, "").TrimStart('\\')
                 });
             }
-
-            if (chkRecursive.Checked)
-            {
-                foreach (string d in Directory.GetDirectories(sDir))
-                {
-                    list.AddRange(GetFiles(d));
-                }
-            }
-
             return list;
         }
 
-        private void btnRun_Click(object sender, EventArgs e)
+        private void ButtonRun_Click(object sender, EventArgs e)
         {
-            btnRun.Enabled = false;
+            DisableForm(true);
 
-            lblOutputStatus.Text = "";
-            lblOutputStatus.ForeColor = SystemColors.WindowText;
+            jobFiles = FilesListBox.CheckedItems.Count;
+            LabelOutputStatus.Text = "[JOB] Compressing " + jobFiles + " Files to CAB";
+            LabelOutputStatus.ForeColor = Color.OrangeRed;
 
-            txtOutput.Clear();
-            txtOutput.ForeColor = SystemColors.WindowText;
+            TextOutput.ForeColor = SystemColors.WindowText;
 
-            if (String.IsNullOrWhiteSpace(txtSourceFolder.Text) ||
-                String.IsNullOrWhiteSpace(txtTargetFolder.Text) ||
-                String.IsNullOrWhiteSpace(txtFileName.Text))
+            if (String.IsNullOrWhiteSpace(TextOutputFile.Text))
             {
-                txtOutput.AppendText("Error: Source path, target path, and target file name must be specified.");
-                txtOutput.ForeColor = Color.Red;
+                LabelOutputStatus.Text = "[ERROR] Please Specify a Target File";
+                LabelOutputStatus.ForeColor = Color.Red;
+            }
+            else if (String.IsNullOrWhiteSpace(DropdownCompressType.Text))
+            {
+                LabelOutputStatus.Text = "[ERROR] Please Specify a Compression Type";
+                LabelOutputStatus.ForeColor = Color.Red;
             }
             else
             {
                 try
                 {
-                    // Create target folder if it doesn't already exist
-
-                    if (!Directory.Exists(txtTargetFolder.Text))
-                    {
-                        Directory.CreateDirectory(txtTargetFolder.Text);
-                    }
-
-                    string ddfPath = Path.Combine(txtTargetFolder.Text, txtFileName.Text + ".ddf");
+                    string ddfPath = Path.Combine(TextOutputFile.Text + ".ddf");
 
                     // Build DDF file
 
-                    bool compress = !CompressionType.None.ToString().Equals(cboCompressType.SelectedItem);
+                    bool compress = !CompressionType.NONE.ToString().Equals(DropdownCompressType.SelectedItem);
                     string compressValue = compress ? "on" : "off";
 
                     StringBuilder ddf = new StringBuilder();
                     ddf.AppendLine($@";*** MakeCAB Directive file;
 .OPTION EXPLICIT
-.Set CabinetNameTemplate={txtFileName.Text.EnsureQuoted()}
-.Set DiskDirectory1={txtTargetFolder.Text.EnsureQuoted()}
+.Set CabinetNameTemplate={TextOutputFile.Text.EnsureQuoted()}
+.Set DiskDirectory1={txtTargetDir.EnsureQuoted()}
 .Set MaxDiskSize=0
 .Set Cabinet=on
 .Set Compress={compressValue}");
 
                     if (compress) {
-                        ddf.AppendLine($".Set CompressionType={cboCompressType.SelectedItem ?? Constants.DefaultCompressionType}");
+                        ddf.AppendLine($".Set CompressionType={DropdownCompressType.SelectedItem ?? Constants.DefaultCompressionType}");
+                    }
+
+                    if (IncludeCompressionWindowSize) {
+                        ddf.AppendFormat($".Set CompressionMemory={(DropdownCompressMemory.SelectedItem as CompressionWindowSize ?? Constants.DefaultCompressionWindowSize).Exponent}");
+                        ddf.AppendLine();
                     }
 
                     ddf.AppendLine();
 
-                    if (IncludeCompressionWindowSize) {
-                        ddf.AppendFormat($".Set CompressionMemory={(cboCompressMemory.SelectedItem as CompressionWindowSize ?? Constants.DefaultCompressionWindowSize).Exponent}");
-                        ddf.AppendLine();
-                    }
-
                     int ddfHeaderLines = ddf.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Length;
                     int maxFiles = MAX_LINES_IN_DDF - ddfHeaderLines; // only write enough files to hit the max # of lines allowed in a DDF (blank lines don't count)
 
-                    List<DdfFileRow> ddfFiles = GetFiles(txtSourceFolder.Text);
+                    List<DdfFileRow> ddfFiles = GetFiles(txtRootDir.Text);
 
                     foreach (var ddfFile in ddfFiles.Take(maxFiles))
                     {
@@ -147,13 +166,15 @@ namespace CabMaker
 
                     Process process = new Process();
 
-                    ProcessStartInfo startInfo = new ProcessStartInfo();
-                    startInfo.CreateNoWindow = true;
-                    startInfo.FileName = "makecab.exe";
-                    startInfo.Arguments = cmd;
-                    startInfo.RedirectStandardOutput = true;
-                    startInfo.RedirectStandardError = true;
-                    startInfo.UseShellExecute = false;
+                    ProcessStartInfo startInfo = new ProcessStartInfo
+                    {
+                        CreateNoWindow = true,
+                        FileName = "makecab.exe",
+                        Arguments = cmd,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        UseShellExecute = false
+                    };
                     process.StartInfo = startInfo;
 
                     process.ErrorDataReceived += Process_ErrorDataReceived;
@@ -164,31 +185,37 @@ namespace CabMaker
                     process.BeginErrorReadLine();
                     process.WaitForExit();
 
-                    txtOutput.AppendText("Exit code: " + process.ExitCode);
+                    TextOutput.AppendText("Exit code: " + process.ExitCode);
 
                     if (process.ExitCode == EXIT_CODE_SUCCESS)
                     {
-                        File.SetLastWriteTime(Path.Combine(txtTargetFolder.Text, txtFileName.Text), DateTime.Now);
-                        lblOutputStatus.Text = "CAB file successfully created.";
-                        lblOutputStatus.ForeColor = Color.Green;
+                        File.SetLastWriteTime((TextOutputFile.Text), DateTime.Now);
+                        compressedFiles += jobFiles;
+                        LabelOutputStatus.Text = "[CabMaker] " + jobFiles + " Files Added to CAB";
+                        LabelOutputStatus.ForeColor = Color.Green;
                     }
                     else
                     {
-                        lblOutputStatus.Text = "CAB file not created. See output for details.";
-                        lblOutputStatus.ForeColor = Color.Red;
+                        LabelOutputStatus.Text = "[JOB] CAB File could not be created. Check the Log for Details";
+                        LabelOutputStatus.ForeColor = Color.Red;
                     }
                 }
                 catch (Exception ex)
                 {
-                    lblOutputStatus.Text = "CAB file not created. See output for details.";
-                    lblOutputStatus.ForeColor = Color.Red;
+                    LabelOutputStatus.Text = "[JOB] CAB File could not be created. Check the Log for Details";
+                    LabelOutputStatus.ForeColor = Color.Red;
 
-                    txtOutput.AppendText("Error: " + ex.ToString());
-                    txtOutput.ForeColor = Color.Red;
+                    TextOutput.AppendText("Error: " + ex.ToString());
+                    TextOutput.ForeColor = Color.Red;
                 }
             }
+            DisableForm(false);
+        }
 
-            btnRun.Enabled = true;
+        private void DisableForm(bool disable)
+        {
+            GroupBoxFiles.Enabled = !disable;
+            GroupBoxCompressor.Enabled = !disable;
         }
 
         // capture output from console stdout to output box on form
@@ -198,7 +225,7 @@ namespace CabMaker
             {
                 if (e.Data != null)
                 {
-                    txtOutput.AppendText(e.Data + Environment.NewLine);
+                    TextOutput.AppendText(e.Data + Environment.NewLine);
                 }
             });
         }
@@ -210,8 +237,8 @@ namespace CabMaker
             {
                 if (e.Data != null)
                 {
-                    txtOutput.AppendText(e.Data + Environment.NewLine);
-                    txtOutput.ForeColor = Color.Red;
+                    TextOutput.AppendText(e.Data + Environment.NewLine);
+                    TextOutput.ForeColor = Color.Red;
                 }
             });
         }
@@ -221,28 +248,24 @@ namespace CabMaker
             IsolatedStorageFile storage = IsolatedStorageFile.GetStore(
                 IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
 
-            bool save = chkRemember.Checked;
+            bool save = CheckSaveSettings.Checked;
 
             UserSettings settings = new UserSettings()
             {
-                SourcePath = (save ? txtSourceFolder.Text : ""),
-                TargetPath = (save ? txtTargetFolder.Text : ""),
-                FileName = (save ? txtFileName.Text : ""),
-                IncludeSubfolders = (save ? chkRecursive.Checked : true),
-                CompressionType = (save ? cboCompressType.SelectedItem : Constants.DefaultCompressionType),
-                CompressionWindowSize = (save ? cboCompressMemory.SelectedValue : Constants.DefaultCompressionWindowSize.Exponent)
+                FileName = (save ? TextOutputFile.Text : ""),
+                CompressionType = (save ? DropdownCompressType.SelectedItem : Constants.DefaultCompressionType),
+                CompressionWindowSize = (save ? DropdownCompressMemory.SelectedValue : Constants.DefaultCompressionWindowSize.Exponent)
             };
-
             storage.SaveObject(settings, $"{Application.ProductName}.dat");
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            cboCompressType.Items.AddRange(Enum.GetNames(typeof(CompressionType)));
-
-            cboCompressMemory.DataSource = Constants.CompressionWindowSizes;
-            cboCompressMemory.DisplayMember = "Description";
-            cboCompressMemory.ValueMember = "Exponent";
+            DropdownCompressType.Items.AddRange(Enum.GetNames(typeof(CompressionType)));
+            DropdownCompressType.SelectedIndex = 0;
+            DropdownCompressMemory.DataSource = Constants.CompressionWindowSizes;
+            DropdownCompressMemory.DisplayMember = "Description";
+            DropdownCompressMemory.ValueMember = "Exponent";
 
             IsolatedStorageFile storage = IsolatedStorageFile.GetStore(
                 IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
@@ -251,24 +274,87 @@ namespace CabMaker
 
             if (settings != null)
             {
-                txtSourceFolder.Text = settings.SourcePath;
-                txtTargetFolder.Text = settings.TargetPath;
-                txtFileName.Text = settings.FileName;
-                cboCompressType.SelectedItem = settings.CompressionType ?? Constants.DefaultCompressionType;
-                cboCompressMemory.SelectedValue = settings.CompressionWindowSize ?? Constants.DefaultCompressionWindowSize.Exponent;
+                TextOutputFile.Text = settings.FileName;
+                DropdownCompressType.SelectedItem = settings.CompressionType ?? Constants.DefaultCompressionType;
+                DropdownCompressMemory.SelectedValue = settings.CompressionWindowSize ?? Constants.DefaultCompressionWindowSize.Exponent;
             }
             else
             {
-                cboCompressType.SelectedItem = Constants.DefaultCompressionType;
-                cboCompressMemory.SelectedValue = Constants.DefaultCompressionWindowSize.Exponent;
+                DropdownCompressType.SelectedItem = Constants.DefaultCompressionType;
+                DropdownCompressMemory.SelectedValue = Constants.DefaultCompressionWindowSize.Exponent;
             }
 
-            lblVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString(2);
+            LabelVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString(2);
+            LabelOutputStatus.Text = "[JOB] " + jobFiles + " Files Imported";
+            LabelOutputStatus.ForeColor = Color.Red;
         }
 
-        private void cboCompressType_SelectedIndexChanged(object sender, EventArgs e)
+        private void DropdownCompressType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cboCompressMemory.Enabled = IncludeCompressionWindowSize;
+            DropdownCompressMemory.Enabled = IncludeCompressionWindowSize;
+            DropdownCompressMemory.Visible = IncludeCompressionWindowSize;
+            LabelCompressionMemory.Visible = IncludeCompressionWindowSize;
+        }
+
+        private void ClearFiles_Click(object sender, EventArgs e)
+        {
+            FilesListBox.Items.Clear();
+            jobFiles = 0;
+            LabelOutputStatus.Text = "[JOB] " + jobFiles + " Files Imported";
+            LabelOutputStatus.ForeColor = Color.Red;
+        }
+
+        private void SelectAllFiles_Click(object sender, EventArgs e)
+        {
+            if (FilesListBox.Items.Count > 0)
+            {
+                bool AllFilesSelected = false;
+                if (SelectAllFiles.Text == "Select All")
+                {
+                    AllFilesSelected = true;
+                    SelectAllFiles.Text = "Deselect All";
+                }
+                else if (SelectAllFiles.Text == "Deselect All")
+                {
+                    AllFilesSelected = false;
+                    SelectAllFiles.Text = "Select All";
+                }
+                int count = FilesListBox.Items.Count;
+                for (int i = 0; i < count; i++)
+                    FilesListBox.SetItemChecked(i, AllFilesSelected);
+            }
+        }
+
+        private void ButtonExport_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                Filter = "Text Files|*.txt"
+            };
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                File.WriteAllText(sfd.FileName, TextOutput.Text);
+            }
+        }
+
+        private void ButtonClear_Click(object sender, EventArgs e)
+        {
+            TextOutput.Clear();
+            txtTargetDir = "";
+            TextOutputFile.Text = "";
+            txtRootDir.Text = "";
+            compressedFiles = 0;
+            LabelOutputStatus.Text = "[JOB] " + jobFiles + " Files Imported";
+        }
+
+        private void ButtonBrowseRoot_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderDialog;
+            folderDialog = new FolderBrowserDialog();
+            if (folderDialog.ShowDialog() == DialogResult.OK)
+            {
+                txtRootDir.Text = folderDialog.SelectedPath;
+            }
         }
     }
 }
