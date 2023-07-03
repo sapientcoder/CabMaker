@@ -239,7 +239,7 @@ namespace CabMaker
         private void Form1_Load(object sender, EventArgs e)
         {
             cboCompressType.Items.AddRange(Enum.GetNames(typeof(CompressionType)));
-
+            cboCompressType.SelectedIndex = 0;
             cboCompressMemory.DataSource = Constants.CompressionWindowSizes;
             cboCompressMemory.DisplayMember = "Description";
             cboCompressMemory.ValueMember = "Exponent";
