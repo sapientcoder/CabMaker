@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.label1 = new System.Windows.Forms.Label();
             this.txtSourceFolder = new System.Windows.Forms.TextBox();
             this.btnSourceBrowse = new System.Windows.Forms.Button();
@@ -64,7 +65,7 @@
             // txtSourceFolder
             // 
             this.txtSourceFolder.Location = new System.Drawing.Point(23, 38);
-            this.txtSourceFolder.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtSourceFolder.Margin = new System.Windows.Forms.Padding(5);
             this.txtSourceFolder.Name = "txtSourceFolder";
             this.txtSourceFolder.Size = new System.Drawing.Size(663, 26);
             this.txtSourceFolder.TabIndex = 1;
@@ -72,7 +73,7 @@
             // btnSourceBrowse
             // 
             this.btnSourceBrowse.Location = new System.Drawing.Point(696, 35);
-            this.btnSourceBrowse.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnSourceBrowse.Margin = new System.Windows.Forms.Padding(5);
             this.btnSourceBrowse.Name = "btnSourceBrowse";
             this.btnSourceBrowse.Size = new System.Drawing.Size(113, 35);
             this.btnSourceBrowse.TabIndex = 2;
@@ -93,7 +94,7 @@
             // txtTargetFolder
             // 
             this.txtTargetFolder.Location = new System.Drawing.Point(23, 163);
-            this.txtTargetFolder.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtTargetFolder.Margin = new System.Windows.Forms.Padding(5);
             this.txtTargetFolder.Name = "txtTargetFolder";
             this.txtTargetFolder.Size = new System.Drawing.Size(663, 26);
             this.txtTargetFolder.TabIndex = 5;
@@ -101,7 +102,7 @@
             // btnTargetBrowse
             // 
             this.btnTargetBrowse.Location = new System.Drawing.Point(696, 162);
-            this.btnTargetBrowse.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnTargetBrowse.Margin = new System.Windows.Forms.Padding(5);
             this.btnTargetBrowse.Name = "btnTargetBrowse";
             this.btnTargetBrowse.Size = new System.Drawing.Size(113, 35);
             this.btnTargetBrowse.TabIndex = 6;
@@ -114,7 +115,7 @@
             this.txtOutput.BackColor = System.Drawing.Color.White;
             this.txtOutput.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOutput.Location = new System.Drawing.Point(23, 469);
-            this.txtOutput.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtOutput.Margin = new System.Windows.Forms.Padding(5);
             this.txtOutput.Multiline = true;
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ReadOnly = true;
@@ -135,7 +136,7 @@
             // btnRun
             // 
             this.btnRun.Location = new System.Drawing.Point(696, 425);
-            this.btnRun.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.btnRun.Margin = new System.Windows.Forms.Padding(5);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(113, 35);
             this.btnRun.TabIndex = 11;
@@ -156,7 +157,7 @@
             // txtFileName
             // 
             this.txtFileName.Location = new System.Drawing.Point(23, 257);
-            this.txtFileName.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.txtFileName.Margin = new System.Windows.Forms.Padding(5);
             this.txtFileName.Name = "txtFileName";
             this.txtFileName.Size = new System.Drawing.Size(355, 26);
             this.txtFileName.TabIndex = 8;
@@ -167,7 +168,7 @@
             this.chkRecursive.Checked = true;
             this.chkRecursive.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRecursive.Location = new System.Drawing.Point(45, 78);
-            this.chkRecursive.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.chkRecursive.Margin = new System.Windows.Forms.Padding(5);
             this.chkRecursive.Name = "chkRecursive";
             this.chkRecursive.Size = new System.Drawing.Size(375, 24);
             this.chkRecursive.TabIndex = 3;
@@ -189,7 +190,7 @@
             this.chkRemember.Checked = true;
             this.chkRemember.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRemember.Location = new System.Drawing.Point(465, 260);
-            this.chkRemember.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.chkRemember.Margin = new System.Windows.Forms.Padding(5);
             this.chkRemember.Name = "chkRemember";
             this.chkRemember.Size = new System.Drawing.Size(341, 24);
             this.chkRemember.TabIndex = 9;
@@ -293,7 +294,8 @@
             this.Controls.Add(this.txtSourceFolder);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
