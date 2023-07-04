@@ -24,5 +24,7 @@
             new CompressionWindowSize(20, "1 MB"),
             new CompressionWindowSize(21, "2 MB")
         };
+
+        public const int MaxLinesInDdf = 1024;
     }
 }

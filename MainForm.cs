@@ -1,29 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.IO.IsolatedStorage;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Windows.Forms;
 
 namespace CabMaker
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        private const int MAX_LINES_IN_DDF = 1024;
         private const int EXIT_CODE_SUCCESS = 0;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
-
-        private bool IncludeCompressionWindowSize =>
-            !Constants.DefaultCompressionType.ToString().Equals(cboCompressType.Items[cboCompressType.SelectedIndex]) &&
-            !CompressionType.None.ToString().Equals(cboCompressType.SelectedItem);
 
         private void btnSourceBrowse_Click(object sender, EventArgs e)
         {
@@ -47,31 +38,6 @@ namespace CabMaker
             {
                 txtTargetFolder.Text = dialog.SelectedPath;
             }
-        }
-
-        private List<DdfFileRow> GetFiles(string sDir)
-        {
-            List<DdfFileRow> list = new List<DdfFileRow>();
-            string srcPath = txtSourceFolder.Text;
-
-            foreach (string f in Directory.GetFiles(sDir))
-            {
-                list.Add(new DdfFileRow()
-                {
-                    FullName = f,
-                    Path = f.Replace(srcPath, "").TrimStart('\\')
-                });
-            }
-
-            if (chkRecursive.Checked)
-            {
-                foreach (string d in Directory.GetDirectories(sDir))
-                {
-                    list.AddRange(GetFiles(d));
-                }
-            }
-
-            return list;
         }
 
         private void btnRun_Click(object sender, EventArgs e)
@@ -102,48 +68,21 @@ namespace CabMaker
                         Directory.CreateDirectory(txtTargetFolder.Text);
                     }
 
-                    string ddfPath = Path.Combine(txtTargetFolder.Text, txtFileName.Text + ".ddf");
-
                     // Build DDF file
 
-                    bool compress = !CompressionType.None.ToString().Equals(cboCompressType.SelectedItem);
-                    string compressValue = compress ? "on" : "off";
+                    DdfFileBuilder ddfBuilder = new DdfFileBuilder(
+                        txtSourceFolder.Text,
+                        chkRecursive.Checked,
+                        txtTargetFolder.Text,
+                        txtFileName.Text,
+                        EnumUtil.SafeParse(cboCompressType.SelectedItem as string, Constants.DefaultCompressionType),
+                        cboCompressMemory.SelectedItem as CompressionWindowSize);
 
-                    StringBuilder ddf = new StringBuilder();
-                    ddf.AppendLine($@";*** MakeCAB Directive file;
-.OPTION EXPLICIT
-.Set CabinetNameTemplate={txtFileName.Text.EnsureQuoted()}
-.Set DiskDirectory1={txtTargetFolder.Text.EnsureQuoted()}
-.Set MaxDiskSize=0
-.Set Cabinet=on
-.Set Compress={compressValue}");
-
-                    if (compress) {
-                        ddf.AppendLine($".Set CompressionType={cboCompressType.SelectedItem ?? Constants.DefaultCompressionType}");
-                    }
-
-                    ddf.AppendLine();
-
-                    if (IncludeCompressionWindowSize) {
-                        ddf.AppendFormat($".Set CompressionMemory={(cboCompressMemory.SelectedItem as CompressionWindowSize ?? Constants.DefaultCompressionWindowSize).Exponent}");
-                        ddf.AppendLine();
-                    }
-
-                    int ddfHeaderLines = ddf.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Length;
-                    int maxFiles = MAX_LINES_IN_DDF - ddfHeaderLines; // only write enough files to hit the max # of lines allowed in a DDF (blank lines don't count)
-
-                    List<DdfFileRow> ddfFiles = GetFiles(txtSourceFolder.Text);
-
-                    foreach (var ddfFile in ddfFiles.Take(maxFiles))
-                    {
-                        ddf.AppendFormat("\"{0}\" \"{1}\"{2}", ddfFile.FullName, ddfFile.Path, Environment.NewLine);
-                    }
-
-                    File.WriteAllText(ddfPath, ddf.ToString(), Encoding.Default);
-
-                    string cmd = String.Format("/f {0}", ddfPath.EnsureQuoted());
+                    ddfBuilder.BuildAndSave();
 
                     // Run "makecab.exe"
+
+                    string cmd = String.Format("/f {0}", ddfBuilder.DdfFilePath.EnsureQuoted());
 
                     Process process = new Process();
 
@@ -216,59 +155,54 @@ namespace CabMaker
             });
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            IsolatedStorageFile storage = IsolatedStorageFile.GetStore(
-                IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
-
-            bool save = chkRemember.Checked;
-
-            UserSettings settings = new UserSettings()
+            if (chkRemember.Checked)
             {
-                SourcePath = (save ? txtSourceFolder.Text : ""),
-                TargetPath = (save ? txtTargetFolder.Text : ""),
-                FileName = (save ? txtFileName.Text : ""),
-                IncludeSubfolders = (save ? chkRecursive.Checked : true),
-                CompressionType = (save ? cboCompressType.SelectedItem : Constants.DefaultCompressionType),
-                CompressionWindowSize = (save ? cboCompressMemory.SelectedValue : Constants.DefaultCompressionWindowSize.Exponent)
-            };
-
-            storage.SaveObject(settings, $"{Application.ProductName}.dat");
+                UserSettings.Save(
+                    txtSourceFolder.Text,
+                    chkRecursive.Checked,
+                    txtTargetFolder.Text,
+                    txtFileName.Text,
+                    EnumUtil.SafeParse(cboCompressType.SelectedItem as string, Constants.DefaultCompressionType),
+                    cboCompressMemory.SelectedItem as CompressionWindowSize);
+            }
+            else
+            {
+                UserSettings.Clear();
+            }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
+            // Initialize drop-downs
+
             cboCompressType.Items.AddRange(Enum.GetNames(typeof(CompressionType)));
-            cboCompressType.SelectedIndex = 0;
             cboCompressMemory.DataSource = Constants.CompressionWindowSizes;
             cboCompressMemory.DisplayMember = "Description";
             cboCompressMemory.ValueMember = "Exponent";
 
-            IsolatedStorageFile storage = IsolatedStorageFile.GetStore(
-                IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
+            // Set field values
 
-            UserSettings settings = storage.LoadObject<UserSettings>($"{Application.ProductName}.dat");
+            UserSettings settings = UserSettings.FetchWithDefaults();
 
-            if (settings != null)
-            {
-                txtSourceFolder.Text = settings.SourcePath;
-                txtTargetFolder.Text = settings.TargetPath;
-                txtFileName.Text = settings.FileName;
-                cboCompressType.SelectedItem = settings.CompressionType ?? Constants.DefaultCompressionType;
-                cboCompressMemory.SelectedValue = settings.CompressionWindowSize ?? Constants.DefaultCompressionWindowSize.Exponent;
-            }
-            else
-            {
-                cboCompressType.SelectedItem = Constants.DefaultCompressionType;
-                cboCompressMemory.SelectedValue = Constants.DefaultCompressionWindowSize.Exponent;
-            }
+            txtSourceFolder.Text = settings.SourcePath;
+            chkRecursive.Checked = settings.IncludeSubfolders;
+            txtTargetFolder.Text = settings.TargetPath;
+            txtFileName.Text = settings.FileName;
+
+            cboCompressType.SelectedItem = Enum.GetName(typeof(CompressionType), settings.CompressionType);
+            cboCompressMemory.SelectedValue = settings.CompressionWindowSize;
 
             lblVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString(2);
         }
 
         private void cboCompressType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cboCompressMemory.Enabled = IncludeCompressionWindowSize;
+            CompressionType compressionType = EnumUtil.SafeParse(
+                cboCompressType.SelectedItem as string, Constants.DefaultCompressionType);
+
+            cboCompressMemory.Enabled = DdfFileBuilder.IsCompressionWindowSizeIncluded(compressionType);
         }
     }
 }
