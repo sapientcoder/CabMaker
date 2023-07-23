@@ -10,7 +10,6 @@ namespace CabMaker
     public partial class MainForm : Form
     {
         private const int EXIT_CODE_SUCCESS = 0;
-
         public MainForm()
         {
             InitializeComponent();
@@ -44,6 +43,20 @@ namespace CabMaker
         {
             btnRun.Enabled = false;
 
+            switch (cboFileExt.SelectedIndex)
+            {
+                case 0:
+
+                    txtFileName.Text = txtFileName.Text + ".cab";
+                    break;
+                case 1:
+                    txtFileName.Text = txtFileName.Text + ".wsp";
+                    break;
+                case 2:
+                    txtFileName.Text = txtFileName.Text + ".xsn";
+                    break;
+
+            }
             lblOutputStatus.Text = "";
             lblOutputStatus.ForeColor = SystemColors.WindowText;
 
@@ -178,6 +191,7 @@ namespace CabMaker
             // Initialize drop-downs
 
             cboCompressType.Items.AddRange(Enum.GetNames(typeof(CompressionType)));
+            cboFileExt.Items.AddRange(Enum.GetNames(typeof(FileExtension)));
             cboCompressMemory.DataSource = Constants.CompressionWindowSizes;
             cboCompressMemory.DisplayMember = "Description";
             cboCompressMemory.ValueMember = "Exponent";
@@ -192,6 +206,7 @@ namespace CabMaker
             txtFileName.Text = settings.FileName;
 
             cboCompressType.SelectedItem = Enum.GetName(typeof(CompressionType), settings.CompressionType);
+            cboFileExt.SelectedItem = Enum.GetName(typeof(FileExtension), settings.FileExtension);
             cboCompressMemory.SelectedValue = settings.CompressionWindowSize;
 
             lblVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString(2);
@@ -203,6 +218,11 @@ namespace CabMaker
                 cboCompressType.SelectedItem as string, Constants.DefaultCompressionType);
 
             cboCompressMemory.Enabled = DdfFileBuilder.IsCompressionWindowSizeIncluded(compressionType);
+        }
+
+        private void txtFileName_TextChanged(object sender, EventArgs e)
+        {
+            return;
         }
     }
 }

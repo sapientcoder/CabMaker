@@ -9,4 +9,11 @@
         MSZIP,
         LZX
     }
+    public enum FileExtension
+    {
+        CAB,
+        WSP,
+        XSN
+
+    }
 }

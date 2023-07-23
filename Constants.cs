@@ -3,6 +3,7 @@
     public static class Constants
     {
         public static CompressionType DefaultCompressionType = CompressionType.MSZIP;
+        public static FileExtension FileExtension = FileExtension.CAB;
         public static CompressionWindowSize DefaultCompressionWindowSize;
 
         static Constants()
