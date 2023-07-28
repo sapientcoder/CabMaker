@@ -13,6 +13,7 @@ namespace CabMaker
         public bool IncludeSubfolders { get; set; }
         public string TargetPath { get; set; }
         public string FileName { get; set; }
+        public FileExtension FileExtension { get; set; }
         public CompressionType CompressionType { get; set; }
         public int CompressionWindowSize { get; set; }
 
@@ -23,6 +24,7 @@ namespace CabMaker
             TargetPath = "";
             FileName = "";
             CompressionType = Constants.DefaultCompressionType;
+            FileExtension = Constants.FileExtension;
             CompressionWindowSize = Constants.DefaultCompressionWindowSize.Exponent;
         }
 
